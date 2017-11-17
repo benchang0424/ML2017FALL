@@ -31,7 +31,7 @@ x_test = np.load('x_test.npy')
 "============== set parameters ===================="
 train_data = sys.argv[1]
 model_best_path = sys.argv[2]
-BATCH_SIZE = 256
+BATCH_SIZE = 512
 "============== set data =========================="
 
 raw_train = np.genfromtxt(train_data, delimiter=',' , dtype=str, skip_header=1)   #(28709, 2)
@@ -123,12 +123,12 @@ model.summary()
 "================================================="
 
 checkpoint = ModelCheckpoint(model_best_path, monitor='val_acc', verbose=1, save_best_only=True, mode='max')
-early_stopping = EarlyStopping(monitor='val_loss', min_delta=0, patience=20, verbose=0, mode='auto')
+#early_stopping = EarlyStopping(monitor='val_loss', min_delta=0, patience=20, verbose=0, mode='auto')
 
 model.fit_generator(datagen.flow(x_train, y_train, batch_size=BATCH_SIZE,shuffle=True)
 			,validation_data=(x_val, y_val)
 			,steps_per_epoch=len(x_train) // BATCH_SIZE
-			,callbacks=[checkpoint,early_stopping]
+			,callbacks=[checkpoint]
 			,epochs=300)
 
 

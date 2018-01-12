@@ -5,7 +5,6 @@ import os
 import sys
 import csv
 import pickle
-from PIL import Image
 from sklearn.decomposition import PCA
 from sklearn.manifold import TSNE
 from sklearn.cluster import KMeans
